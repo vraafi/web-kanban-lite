@@ -2,99 +2,93 @@
   box-sizing: border-box;
 }
 
-html {
-  -webkit-text-size-adjust: 100%;
+html, body {
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  margin: 0;
-  padding: 16px;
-  background-color: #0b1220;
+  background: #0b1220;
   color: #e2e8f0;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 1.5;
+  min-height: 100vh;
   overflow-x: hidden;
 }
 
 main {
-  width: 100%;
   max-width: 1100px;
+  width: 100%;
   margin: 0 auto;
+  padding: 24px 16px 48px;
 }
 
 h1 {
-  margin: 0 0 16px 0;
   font-size: 1.75rem;
-  line-height: 1.25;
+  margin: 0 0 8px;
   color: #e2e8f0;
   white-space: normal;
   word-break: break-word;
 }
 
 h2 {
-  margin: 0 0 12px 0;
   font-size: 1.125rem;
-  line-height: 1.3;
+  margin: 0 0 12px;
   color: #e2e8f0;
   white-space: normal;
   word-break: break-word;
 }
 
-p {
-  margin: 0 0 12px 0;
+.hint {
+  color: #94a3b8;
+  margin: 0 0 20px;
+  max-width: 60ch;
   white-space: normal;
   word-break: break-word;
 }
 
-.form-tambah {
+.sr-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.add-form {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-end;
   gap: 12px;
-  margin-bottom: 12px;
-  padding: 16px;
-  background-color: #111c2f;
-  border: 1px solid #334155;
-  border-radius: 10px;
-  max-width: 100%;
-}
-
-.label-input {
-  display: block;
+  margin-bottom: 24px;
   width: 100%;
-  color: #94a3b8;
-  font-size: 0.9375rem;
-  margin-bottom: -4px;
-  white-space: normal;
-  word-break: break-word;
 }
 
-.input-kartu {
-  flex: 1 1 220px;
+.add-form input {
+  flex: 1 1 240px;
   min-width: 0;
   max-width: 100%;
-  min-height: 48px;
+  background: #111c33;
+  color: #e2e8f0;
+  border: 1px solid #334155;
+  border-radius: 8px;
   padding: 14px 16px;
   font-size: 1rem;
   font-family: inherit;
-  color: #e2e8f0;
-  background-color: #0b1220;
-  border: 2px solid #334155;
-  border-radius: 8px;
-  white-space: normal;
-  word-break: break-word;
+  min-height: 48px;
 }
 
-.input-kartu::placeholder {
+.add-form input::placeholder {
   color: #94a3b8;
-  opacity: 1;
 }
 
-.input-kartu:focus-visible {
-  outline: 3px solid #60a5fa;
+.add-form input:focus-visible {
+  outline: 3px solid #93c5fd;
   outline-offset: 2px;
-  border-color: #60a5fa;
 }
 
 .btn {
@@ -104,163 +98,127 @@ p {
   min-width: 48px;
   min-height: 48px;
   padding: 14px 22px;
-  border: 2px solid transparent;
+  border: 1px solid transparent;
   border-radius: 8px;
   font-size: 1rem;
   font-family: inherit;
   font-weight: 600;
-  line-height: 1.3;
-  text-align: center;
+  line-height: 1.25;
   cursor: pointer;
   white-space: normal;
   word-break: break-word;
-  flex: 0 1 auto;
-  max-width: 100%;
+  text-align: center;
+  opacity: 1;
 }
 
 .btn:focus-visible {
-  outline: 3px solid #60a5fa;
-  outline-offset: 3px;
+  outline: 3px solid #93c5fd;
+  outline-offset: 2px;
 }
 
-.btn-utama {
-  background-color: #1d4ed8;
+.btn-primary {
+  background: #1d4ed8;
   color: #ffffff;
 }
 
-.btn-utama:hover {
-  background-color: #2563eb;
+.btn-primary:hover {
+  background: #1e40af;
 }
 
-.btn-kedua {
-  background-color: #334155;
+.btn-secondary {
+  background: #334155;
   color: #f8fafc;
 }
 
-.btn-kedua:hover {
-  background-color: #475569;
+.btn-secondary:hover {
+  background: #475569;
 }
 
-.btn-hapus {
-  background-color: #334155;
+.btn-danger {
+  background: #334155;
   color: #f8fafc;
+  border-color: #7f1d1d;
 }
 
-.btn-hapus:hover {
-  background-color: #b91c1c;
+.btn-danger:hover {
+  background: #7f1d1d;
   color: #ffffff;
 }
 
-.status {
-  min-height: 1.5em;
-  margin: 0 0 16px 0;
+.btn:disabled {
+  cursor: not-allowed;
+  background: #1e293b;
   color: #94a3b8;
-  font-size: 0.9375rem;
-  white-space: normal;
-  word-break: break-word;
+  border-color: #334155;
+  opacity: 1;
 }
 
-.papan {
+.board {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
   width: 100%;
-  max-width: 100%;
-  align-items: flex-start;
 }
 
-.kolom {
+.column {
   flex: 1 1 280px;
   min-width: 0;
   max-width: 100%;
+  background: #111c33;
+  border: 1px solid #1e293b;
+  border-radius: 12px;
   padding: 16px;
-  background-color: #111c2f;
-  border: 1px solid #334155;
-  border-radius: 10px;
 }
 
-.daftar-kartu {
+.cards {
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  width: 100%;
-  max-width: 100%;
 }
 
-.kartu {
-  padding: 12px;
-  background-color: #0b1220;
+.card {
+  background: #1e293b;
   border: 1px solid #334155;
-  border-radius: 8px;
-  width: 100%;
+  border-radius: 10px;
+  padding: 12px;
   max-width: 100%;
-  overflow-wrap: break-word;
-  white-space: normal;
-  word-break: break-word;
 }
 
-.judul-kartu {
-  margin: 0 0 12px 0;
+.card-text {
+  margin: 0 0 10px;
   color: #e2e8f0;
-  font-size: 1rem;
-  line-height: 1.45;
   white-space: normal;
   word-break: break-word;
-  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
 }
 
-.aksi-kartu {
+.card-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   width: 100%;
-  max-width: 100%;
 }
 
-.kosong {
-  margin: 0;
-  padding: 12px;
+.card-actions .btn {
+  flex: 1 1 auto;
+  min-width: 48px;
+}
+
+.empty {
   color: #94a3b8;
-  font-size: 0.9375rem;
-  border: 1px dashed #334155;
-  border-radius: 8px;
+  font-style: italic;
+  padding: 4px 2px;
   white-space: normal;
   word-break: break-word;
 }
 
-.petunjuk {
-  margin: 20px 0 0 0;
+.status {
+  margin-top: 20px;
   color: #94a3b8;
-  font-size: 0.875rem;
+  min-height: 1.5em;
   white-space: normal;
   word-break: break-word;
-}
-
-[hidden] {
-  display: none !important;
-}
-
-@media (max-width: 520px) {
-  body {
-    padding: 12px;
-  }
-
-  h1 {
-    font-size: 1.5rem;
-  }
-
-  .form-tambah {
-    padding: 12px;
-  }
-
-  .kolom {
-    padding: 12px;
-  }
-
-  .btn {
-    flex: 1 1 100%;
-  }
 }

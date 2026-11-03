@@ -1,14 +1,16 @@
 ## Masalah
-Papan kanban biasanya bergantung pada library berat. Untuk kebutuhan 3 kolom, ketergantungan itu memperlambat pemuatan dan menyulitkan audit kode. Kami bangun Kanban Lite sebagai alternatif mandiri.
+Papan kanban sering butuh library berat. Untuk kebutuhan tiga kolom, itu menambah dependensi tanpa nilai tambah.
 
 ## Yang Dibangun
-Papan kanban 3 kolom berbasis web tanpa library. Pengguna dapat menambah, menggeser, dan menghapus kartu. Data tersimpan di localStorage. Navigasi papan ketik didukung penuh. Hasilnya tiga berkas: app.js (6595 B), index.html (1767 B), style.css (4361 B).
+Kanban Lite: papan tiga kolom tanpa library. Pengguna bisa menambah, menggeser, dan menghapus kartu. Data tersimpan di localStorage. Papan ketik didukung.
+
+Hasil: app.js (5901 B), index.html (1341 B), style.css (3574 B).
 
 ## Keputusan Teknis
-Kami pisahkan logika, struktur, dan tampilan ke tiga berkas agar mudah diaudit. localStorage dipakai sebagai penyimpanan tanpa server. Dukungan papan ketik kami masukkan sejak awal, bukan tambahan akhir.
+JavaScript murni tanpa dependensi. State disimpan di localStorage agar data bertahan tanpa backend. Kendali papan ketik dipasang di level dokumen supaya operasi kartu bisa dilakukan tanpa mouse.
 
 ## Bukti
-QC mencakup 3 lapis aktif: kode, pengguna, visual. Ketiganya lulus dalam 41,2 detik dengan 0 temuan. Pemeriksaan kode mencakup 1 berkas JS, 0 Python, 0 JSON, 0 Lua, dan 2 berkas lain.
+QC mencakup tiga lapis: kode, pengguna, visual. Ketiganya lulus. Waktu QC 41,23 detik. Temuan: 0. Rincian kode: 1 JS, 0 py, 0 json, 0 lua, 2 lain.
 
 ## Batasan
-Tanpa backend, data terikat pada satu peramban. Tanpa akun, tidak ada sinkronisasi antar perangkat. Skala uji terbatas pada papan 3 kolom, bukan papan besar bertingkat.
+Hanya tiga kolom. Tidak ada backend, sinkronisasi, atau multi-pengguna. Skala data dibatasi kapasitas localStorage. Kode belum diuji untuk volume kartu besar.

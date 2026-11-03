@@ -31,8 +31,8 @@
     "lain": 2
    },
    "jumlah_diperiksa": 3,
-   "detik": 0.2,
-   "diperiksa": "2026-11-03T13:53:01+07:00"
+   "detik": 1.02,
+   "diperiksa": "2026-11-03T13:59:12+07:00"
   },
   "visual": {
    "lapis": "visual",
@@ -43,18 +43,20 @@
    "bounce_ke": null,
    "temuan": [],
    "catatan": [],
-   "url": "http://127.0.0.1:60140/index.html",
-   "saran_mutu": [],
-   "screenshot": "C:\\Users\\user\\otonom-penuh\\state\\os\\qc_hardcore\\visual\\visual-1793688783.png",
+   "url": "http://127.0.0.1:54931/index.html",
+   "saran_mutu": [
+    "MLLM menandai teks_tak_terbaca tetapi pengukuran membantahnya (kontras min 6.62:1 ≥ 4.5, font min 16.0 px ≥ 11, tombol keluar viewport False) — pendapat VLM tidak dipakai memblokir"
+   ],
+   "screenshot": "C:\\Users\\user\\otonom-penuh\\state\\os\\qc_hardcore\\visual\\visual-1793689153.png",
    "dom": {
     "inti": [
      {
       "kunci": "el0",
       "label": "Tambah Kartu",
-      "x": 1104,
-      "y": 115,
-      "w": 149,
-      "h": 53,
+      "x": 1107,
+      "y": 142,
+      "w": 147,
+      "h": 51,
       "terlihat": true,
       "di_viewport": true,
       "horizontal_ok": true,
@@ -65,8 +67,8 @@
     ],
     "interaktif": 2,
     "teks_diukur": 9,
-    "kontras_min": 6.65,
-    "font_min": 14.0,
+    "kontras_min": 6.62,
+    "font_min": 16.0,
     "lebar": 1440,
     "tinggi": 900
    },
@@ -75,21 +77,24 @@
     "sah": true,
     "tombol_terpotong": false,
     "warna_salah": false,
-    "teks_tak_terbaca": false,
-    "skor": 5,
-    "alasan": "Panel rapi, kontras baik, tombol utuh",
+    "teks_tak_terbaca": true,
+    "skor": 4,
+    "alasan": "Teks deskripsi dan kolom kosong terlalu kecil/pudar",
     "lengkap": true,
     "percobaan": 1,
-    "detik": 1.5,
+    "detik": 1.8,
     "penyedia": "workbuddy-router:workbuddy-7",
     "akun": "workbuddy-7",
     "http": 200,
     "gambar": 1,
     "jalur": "workbuddy",
-    "alat": "MLLM (Router WorkBuddy)"
+    "alat": "MLLM (Router WorkBuddy)",
+    "dibantah_oleh_pengukuran": [
+     "teks_tak_terbaca"
+    ]
    },
-   "detik": 3.62,
-   "diperiksa": "2026-11-03T13:53:05+07:00"
+   "detik": 3.81,
+   "diperiksa": "2026-11-03T13:59:16+07:00"
   },
   "pengguna": {
    "lapis": "pengguna",
@@ -169,12 +174,12 @@
      "membingungkan": []
     }
    ],
-   "detik": 37.38,
-   "diperiksa": "2026-11-03T13:53:42+07:00"
+   "detik": 36.4,
+   "diperiksa": "2026-11-03T13:59:52+07:00"
   }
  },
- "detik": 41.2,
- "diperiksa": "2026-11-03T13:53:42+07:00",
+ "detik": 41.23,
+ "diperiksa": "2026-11-03T13:59:52+07:00",
  "target": "C:\\Users\\user\\otonom-penuh\\workspace\\trust-test\\web-kanban-lite",
- "url": "http://127.0.0.1:60140/index.html"
+ "url": "http://127.0.0.1:54931/index.html"
 }

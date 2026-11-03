@@ -1,252 +1,195 @@
 (function () {
-  "use strict";
+  'use strict';
 
-  var KUNCI_SIMPAN = "kanban-lite-v1";
-  var KOLOM = ["todo", "progress", "done"];
-  var NAMA_KOLOM = {
-    todo: "Akan Dikerjakan",
-    progress: "Sedang Dikerjakan",
-    done: "Selesai"
-  };
+  var STORAGE_KEY = 'kanban-lite-v1';
+  var COLUMNS = ['todo', 'doing', 'done'];
+  var COL_LABEL = { todo: 'Akan Dikerjakan', doing: 'Sedang Dikerjakan', done: 'Selesai' };
 
-  var state = { kartu: [] };
-  var idBerikut = 1;
+  var state = { todo: [], doing: [], done: [] };
+  var board = document.getElementById('board');
+  var form = document.getElementById('add-form');
+  var input = document.getElementById('card-input');
+  var statusEl = document.getElementById('status');
 
-  function bacaSimpanan() {
-    var mentah = null;
+  function nextId() {
+    return 'c' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+  }
+
+  function load() {
+    var raw = null;
     try {
-      mentah = window.localStorage.getItem(KUNCI_SIMPAN);
+      raw = window.localStorage.getItem(STORAGE_KEY);
     } catch (e) {
-      mentah = null;
+      raw = null;
     }
-    if (!mentah) {
+    if (!raw) { return; }
+    try {
+      var data = JSON.parse(raw);
+      if (!data || typeof data !== 'object') { return; }
+      COLUMNS.forEach(function (col) {
+        var arr = data[col];
+        if (Array.isArray(arr)) {
+          state[col] = arr.filter(function (item) {
+            return item && typeof item.id === 'string' && typeof item.text === 'string';
+          }).map(function (item) {
+            return { id: item.id, text: item.text };
+          });
+        }
+      });
+    } catch (e) {
+      state = { todo: [], doing: [], done: [] };
+    }
+  }
+
+  function save() {
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch (e) {
+      announce('Gagal menyimpan data di perangkat ini.');
+    }
+  }
+
+  function announce(msg) {
+    statusEl.textContent = msg;
+  }
+
+  function makeButton(label, className, onClick) {
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'btn ' + className;
+    btn.textContent = label;
+    btn.addEventListener('click', onClick);
+    return btn;
+  }
+
+  function findCard(id) {
+    for (var i = 0; i < COLUMNS.length; i++) {
+      var col = COLUMNS[i];
+      for (var j = 0; j < state[col].length; j++) {
+        if (state[col][j].id === id) {
+          return { col: col, index: j, card: state[col][j] };
+        }
+      }
+    }
+    return null;
+  }
+
+  function moveCard(id, dir) {
+    var found = findCard(id);
+    if (!found) { return; }
+    var idx = COLUMNS.indexOf(found.col);
+    var target = idx + dir;
+    if (target < 0 || target >= COLUMNS.length) {
+      announce('Kartu sudah di kolom paling ' + (dir < 0 ? 'kiri.' : 'kanan.'));
       return;
     }
-    try {
-      var data = JSON.parse(mentah);
-      if (!data || !Array.isArray(data.kartu)) {
-        return;
-      }
-      var bersih = [];
-      var maksId = 0;
-      for (var i = 0; i < data.kartu.length; i++) {
-        var k = data.kartu[i];
-        if (!k || typeof k !== "object") {
-          continue;
-        }
-        var judul = typeof k.judul === "string" ? k.judul.trim() : "";
-        if (!judul) {
-          continue;
-        }
-        var kolom = KOLOM.indexOf(k.kolom) !== -1 ? k.kolom : "todo";
-        var id = typeof k.id === "number" && isFinite(k.id) ? k.id : 0;
-        if (id <= 0) {
-          continue;
-        }
-        if (id > maksId) {
-          maksId = id;
-        }
-        bersih.push({ id: id, judul: judul, kolom: kolom });
-      }
-      state.kartu = bersih;
-      idBerikut = maksId + 1;
-    } catch (e) {
-      state.kartu = [];
-      idBerikut = 1;
-    }
+    state[found.col].splice(found.index, 1);
+    state[COLUMNS[target]].push(found.card);
+    save();
+    render();
+    announce('Kartu dipindah ke ' + COL_LABEL[COLUMNS[target]] + '.');
   }
 
-  function simpan() {
-    try {
-      window.localStorage.setItem(KUNCI_SIMPAN, JSON.stringify({ kartu: state.kartu }));
-    } catch (e) {
-      // penyimpanan tidak tersedia; abaikan
-    }
+  function removeCard(id) {
+    var found = findCard(id);
+    if (!found) { return; }
+    state[found.col].splice(found.index, 1);
+    save();
+    render();
+    announce('Kartu dihapus.');
   }
 
-  function cariKartu(id) {
-    for (var i = 0; i < state.kartu.length; i++) {
-      if (state.kartu[i].id === id) {
-        return i;
-      }
-    }
-    return -1;
-  }
+  function buildCard(col, card, index) {
+    var li = document.createElement('li');
+    li.className = 'card';
+    li.dataset.id = card.id;
 
-  function beriStatus(pesan) {
-    var el = document.getElementById("status-hidup");
-    if (el) {
-      el.textContent = pesan;
-    }
-  }
+    var text = document.createElement('p');
+    text.className = 'card-text';
+    text.textContent = card.text;
+    li.appendChild(text);
 
-  function tombolAksi(label, kelas, aksi, idKartu) {
-    var b = document.createElement("button");
-    b.type = "button";
-    b.className = "btn " + kelas;
-    b.textContent = label;
-    b.setAttribute("data-aksi", aksi);
-    b.setAttribute("data-id", String(idKartu));
-    return b;
+    var actions = document.createElement('div');
+    actions.className = 'card-actions';
+
+    var leftBtn = makeButton('\u2190 Kiri', 'btn-secondary', function () {
+      moveCard(card.id, -1);
+    });
+    leftBtn.setAttribute('aria-label', 'Geser kartu ' + card.text + ' ke kiri');
+    if (index === 0) { leftBtn.disabled = true; }
+
+    var rightBtn = makeButton('Kanan \u2192', 'btn-secondary', function () {
+      moveCard(card.id, 1);
+    });
+    rightBtn.setAttribute('aria-label', 'Geser kartu ' + card.text + ' ke kanan');
+    if (index === COLUMNS.length - 1) {
+      rightBtn.disabled = true;
+    }
+
+    var delBtn = makeButton('Hapus', 'btn-secondary btn-danger', function () {
+      removeCard(card.id);
+    });
+    delBtn.setAttribute('aria-label', 'Hapus kartu ' + card.text);
+
+    actions.appendChild(leftBtn);
+    actions.appendChild(rightBtn);
+    actions.appendChild(delBtn);
+    li.appendChild(actions);
+
+    return li;
   }
 
   function render() {
-    var i;
-    for (i = 0; i < KOLOM.length; i++) {
-      var daftar = document.getElementById("daftar-" + KOLOM[i]);
-      if (daftar) {
-        daftar.textContent = "";
+    COLUMNS.forEach(function (col) {
+      var list = document.getElementById('list-' + col);
+      list.textContent = '';
+      var items = state[col];
+      if (items.length === 0) {
+        var empty = document.createElement('li');
+        empty.className = 'empty';
+        empty.textContent = 'Belum ada kartu.';
+        list.appendChild(empty);
+      } else {
+        items.forEach(function (card, index) {
+          list.appendChild(buildCard(col, card, index));
+        });
       }
-    }
-
-    for (i = 0; i < state.kartu.length; i++) {
-      var kartu = state.kartu[i];
-      var ul = document.getElementById("daftar-" + kartu.kolom);
-      if (!ul) {
-        continue;
+      var section = board.querySelector('[data-col="' + col + '"]');
+      if (section) {
+        section.setAttribute('data-count', String(items.length));
       }
-      var li = document.createElement("li");
-      li.className = "kartu";
-      li.setAttribute("data-id", String(kartu.id));
-
-      var judul = document.createElement("p");
-      judul.className = "judul-kartu";
-      judul.textContent = kartu.judul;
-      li.appendChild(judul);
-
-      var aksi = document.createElement("div");
-      aksi.className = "aksi-kartu";
-
-      var posisi = KOLOM.indexOf(kartu.kolom);
-
-      if (posisi > 0) {
-        var kiri = tombolAksi("\u2190 Geser Kiri", "btn-kedua", "kiri", kartu.id);
-        kiri.setAttribute("title", "Pindahkan ke " + NAMA_KOLOM[KOLOM[posisi - 1]]);
-        aksi.appendChild(kiri);
-      }
-
-      if (posisi < KOLOM.length - 1) {
-        var kanan = tombolAksi("Geser Kanan \u2192", "btn-kedua", "kanan", kartu.id);
-        kanan.setAttribute("title", "Pindahkan ke " + NAMA_KOLOM[KOLOM[posisi + 1]]);
-        aksi.appendChild(kanan);
-      }
-
-      var hapus = tombolAksi("Hapus", "btn-hapus", "hapus", kartu.id);
-      aksi.appendChild(hapus);
-
-      li.appendChild(aksi);
-      ul.appendChild(li);
-    }
-
-    for (i = 0; i < KOLOM.length; i++) {
-      var kosong = document.getElementById("kosong-" + KOLOM[i]);
-      if (kosong) {
-        var ada = false;
-        for (var j = 0; j < state.kartu.length; j++) {
-          if (state.kartu[j].kolom === KOLOM[i]) {
-            ada = true;
-            break;
-          }
-        }
-        kosong.hidden = ada;
-      }
-    }
+    });
   }
 
-  function tambahKartu(judul) {
-    var teks = judul.trim();
-    if (!teks) {
-      return false;
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    var value = input.value.trim();
+    if (!value) {
+      announce('Teks kartu tidak boleh kosong.');
+      input.focus();
+      return;
     }
-    state.kartu.push({ id: idBerikut, judul: teks, kolom: "todo" });
-    idBerikut += 1;
-    simpan();
+    state.todo.push({ id: nextId(), text: value });
+    input.value = '';
+    save();
     render();
-    beriStatus("Kartu \"" + teks + "\" ditambahkan.");
-    return true;
-  }
+    announce('Kartu ditambahkan ke ' + COL_LABEL.todo + '.');
+    input.focus();
+  });
 
-  function geserKartu(id, arah) {
-    var idx = cariKartu(id);
-    if (idx === -1) {
-      return;
-    }
-    var kartu = state.kartu[idx];
-    var posisi = KOLOM.indexOf(kartu.kolom);
-    if (posisi === -1) {
-      return;
-    }
-    var baru = posisi + (arah === "kanan" ? 1 : -1);
-    if (baru < 0 || baru >= KOLOM.length) {
-      return;
-    }
-    kartu.kolom = KOLOM[baru];
-    simpan();
-    render();
-    beriStatus("Kartu dipindah ke " + NAMA_KOLOM[kartu.kolom] + ".");
-  }
-
-  function hapusKartu(id) {
-    var idx = cariKartu(id);
-    if (idx === -1) {
-      return;
-    }
-    var judul = state.kartu[idx].judul;
-    state.kartu.splice(idx, 1);
-    simpan();
-    render();
-    beriStatus("Kartu \"" + judul + "\" dihapus.");
-  }
-
-  function tanganiKlik(event) {
-    var target = event.target;
-    var el = target;
-    while (el && el !== document.body) {
-      if (el.tagName === "BUTTON" && el.hasAttribute("data-aksi")) {
+  document.addEventListener('keydown', function (event) {
+    if (event.altKey && (event.key === 'ArrowLeft' || event.key === 'ArrowRight')) {
+      var active = document.activeElement;
+      var cardEl = active && active.closest ? active.closest('.card') : null;
+      if (cardEl && cardEl.dataset.id) {
         event.preventDefault();
-        var aksi = el.getAttribute("data-aksi");
-        var id = parseInt(el.getAttribute("data-id"), 10);
-        if (!isFinite(id)) {
-          return;
-        }
-        if (aksi === "kiri") {
-          geserKartu(id, "kiri");
-        } else if (aksi === "kanan") {
-          geserKartu(id, "kanan");
-        } else if (aksi === "hapus") {
-          hapusKartu(id);
-        }
-        return;
+        moveCard(cardEl.dataset.id, event.key === 'ArrowLeft' ? -1 : 1);
+        var again = board.querySelector('.card[data-id="' + cardEl.dataset.id + '"] .btn');
+        if (again) { again.focus(); }
       }
-      el = el.parentNode;
     }
-  }
+  });
 
-  function siap() {
-    bacaSimpanan();
-    render();
-
-    var form = document.getElementById("form-tambah");
-    if (form) {
-      form.addEventListener("submit", function (event) {
-        event.preventDefault();
-        var input = document.getElementById("input-kartu");
-        if (!input) {
-          return;
-        }
-        if (tambahKartu(input.value)) {
-          input.value = "";
-          input.focus();
-        }
-      });
-    }
-
-    document.addEventListener("click", tanganiKlik);
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", siap);
-  } else {
-    siap();
-  }
+  load();
+  render();
 })();

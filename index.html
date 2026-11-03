@@ -10,30 +10,27 @@
 <body>
 <main>
 <h1>Kanban Lite</h1>
-<form id="form-tambah" class="form-tambah">
-<label for="input-kartu" class="label-input">Tambah kartu baru</label>
-<input type="text" id="input-kartu" class="input-kartu" placeholder="Tulis judul kartu..." autocomplete="off" maxlength="120" required>
-<button type="submit" class="btn btn-utama" id="btn-tambah">Tambah Kartu</button>
+<p class="hint">Tambah kartu, geser antar kolom, atau hapus. Data tersimpan otomatis di perangkat ini.</p>
+<form id="add-form" class="add-form" autocomplete="off">
+<label for="card-input" class="sr-label">Teks kartu baru</label>
+<input id="card-input" type="text" placeholder="Tulis kartu baru..." maxlength="200" required>
+<button type="submit" class="btn btn-primary">Tambah Kartu</button>
 </form>
-<p id="status-hidup" class="status" role="status" aria-live="polite"></p>
-<div class="papan">
-<section class="kolom" data-kolom="todo" aria-labelledby="judul-todo">
-<h2 id="judul-todo" class="judul-kolom">Akan Dikerjakan</h2>
-<ul class="daftar-kartu" id="daftar-todo" data-daftar="todo"></ul>
-<p class="kosong" id="kosong-todo">Belum ada kartu.</p>
-</section>
-<section class="kolom" data-kolom="progress" aria-labelledby="judul-progress">
-<h2 id="judul-progress" class="judul-kolom">Sedang Dikerjakan</h2>
-<ul class="daftar-kartu" id="daftar-progress" data-daftar="progress"></ul>
-<p class="kosong" id="kosong-progress">Belum ada kartu.</p>
-</section>
-<section class="kolom" data-kolom="done" aria-labelledby="judul-done">
-<h2 id="judul-done" class="judul-kolom">Selesai</h2>
-<ul class="daftar-kartu" id="daftar-done" data-daftar="done"></ul>
-<p class="kosong" id="kosong-done">Belum ada kartu.</p>
-</section>
+<div id="board" class="board">
+  <section class="column" data-col="todo" aria-labelledby="h-todo">
+    <h2 id="h-todo">Akan Dikerjakan</h2>
+    <ul class="cards" id="list-todo"></ul>
+  </section>
+  <section class="column" data-col="doing" aria-labelledby="h-doing">
+    <h2 id="h-doing">Sedang Dikerjakan</h2>
+    <ul class="cards" id="list-doing"></ul>
+  </section>
+  <section class="column" data-col="done" aria-labelledby="h-done">
+    <h2 id="h-done">Selesai</h2>
+    <ul class="cards" id="list-done"></ul>
+  </section>
 </div>
-<p class="petunjuk">Tip: gunakan tombol panah untuk memindahkan kartu, dan tombol Hapus untuk membuangnya. Semua perubahan tersimpan otomatis di peramban Anda.</p>
+<p id="status" class="status" role="status" aria-live="polite"></p>
 </main>
 </body>
 </html>

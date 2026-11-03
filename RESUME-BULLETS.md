@@ -1,1 +1,3 @@
-['Membangun papan kanban 3 kolom tanpa library dengan penyimpanan localStorage dan navigasi papan ketik.', 'Meloloskan 3 lapis QC kode, pengguna, dan visual dalam 41,2 detik dengan 0 temuan.', 'Menjaga jejak kode ringkas: app.js 6595 B, index.html 1767 B, style.css 4361 B.']
+- Membangun Kanban Lite tiga kolom tanpa library; 3 lapis QC lulus.
+- Menutup QC kode, pengguna, dan visual dalam 41,23 detik tanpa temuan.
+- Menyimpan state di localStorage; berkas app.js 5901 B, index.html 1341 B.
