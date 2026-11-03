@@ -1,0 +1,1 @@
+['Membangun papan kanban 3 kolom tanpa library dengan penyimpanan localStorage dan navigasi papan ketik.', 'Meloloskan 3 lapis QC kode, pengguna, dan visual dalam 41,2 detik dengan 0 temuan.', 'Menjaga jejak kode ringkas: app.js 6595 B, index.html 1767 B, style.css 4361 B.']

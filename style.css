@@ -1,0 +1,266 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 16px;
+  background-color: #0b1220;
+  color: #e2e8f0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+main {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+h1 {
+  margin: 0 0 16px 0;
+  font-size: 1.75rem;
+  line-height: 1.25;
+  color: #e2e8f0;
+  white-space: normal;
+  word-break: break-word;
+}
+
+h2 {
+  margin: 0 0 12px 0;
+  font-size: 1.125rem;
+  line-height: 1.3;
+  color: #e2e8f0;
+  white-space: normal;
+  word-break: break-word;
+}
+
+p {
+  margin: 0 0 12px 0;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.form-tambah {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding: 16px;
+  background-color: #111c2f;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  max-width: 100%;
+}
+
+.label-input {
+  display: block;
+  width: 100%;
+  color: #94a3b8;
+  font-size: 0.9375rem;
+  margin-bottom: -4px;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.input-kartu {
+  flex: 1 1 220px;
+  min-width: 0;
+  max-width: 100%;
+  min-height: 48px;
+  padding: 14px 16px;
+  font-size: 1rem;
+  font-family: inherit;
+  color: #e2e8f0;
+  background-color: #0b1220;
+  border: 2px solid #334155;
+  border-radius: 8px;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.input-kartu::placeholder {
+  color: #94a3b8;
+  opacity: 1;
+}
+
+.input-kartu:focus-visible {
+  outline: 3px solid #60a5fa;
+  outline-offset: 2px;
+  border-color: #60a5fa;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  min-height: 48px;
+  padding: 14px 22px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
+  cursor: pointer;
+  white-space: normal;
+  word-break: break-word;
+  flex: 0 1 auto;
+  max-width: 100%;
+}
+
+.btn:focus-visible {
+  outline: 3px solid #60a5fa;
+  outline-offset: 3px;
+}
+
+.btn-utama {
+  background-color: #1d4ed8;
+  color: #ffffff;
+}
+
+.btn-utama:hover {
+  background-color: #2563eb;
+}
+
+.btn-kedua {
+  background-color: #334155;
+  color: #f8fafc;
+}
+
+.btn-kedua:hover {
+  background-color: #475569;
+}
+
+.btn-hapus {
+  background-color: #334155;
+  color: #f8fafc;
+}
+
+.btn-hapus:hover {
+  background-color: #b91c1c;
+  color: #ffffff;
+}
+
+.status {
+  min-height: 1.5em;
+  margin: 0 0 16px 0;
+  color: #94a3b8;
+  font-size: 0.9375rem;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.papan {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  width: 100%;
+  max-width: 100%;
+  align-items: flex-start;
+}
+
+.kolom {
+  flex: 1 1 280px;
+  min-width: 0;
+  max-width: 100%;
+  padding: 16px;
+  background-color: #111c2f;
+  border: 1px solid #334155;
+  border-radius: 10px;
+}
+
+.daftar-kartu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 100%;
+}
+
+.kartu {
+  padding: 12px;
+  background-color: #0b1220;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.judul-kartu {
+  margin: 0 0 12px 0;
+  color: #e2e8f0;
+  font-size: 1rem;
+  line-height: 1.45;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.aksi-kartu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+  max-width: 100%;
+}
+
+.kosong {
+  margin: 0;
+  padding: 12px;
+  color: #94a3b8;
+  font-size: 0.9375rem;
+  border: 1px dashed #334155;
+  border-radius: 8px;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.petunjuk {
+  margin: 20px 0 0 0;
+  color: #94a3b8;
+  font-size: 0.875rem;
+  white-space: normal;
+  word-break: break-word;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+@media (max-width: 520px) {
+  body {
+    padding: 12px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .form-tambah {
+    padding: 12px;
+  }
+
+  .kolom {
+    padding: 12px;
+  }
+
+  .btn {
+    flex: 1 1 100%;
+  }
+}
