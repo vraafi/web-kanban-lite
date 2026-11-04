@@ -1,16 +1,14 @@
 ## Masalah
-Papan kanban sering butuh library berat. Untuk kebutuhan tiga kolom, itu menambah dependensi tanpa nilai tambah.
+Banyak papan kanban web bergantung pada library besar. Itu menambah beban muatan dan permukaan bug. Untuk kebutuhan sederhana—tiga kolom, tambah, geser, hapus kartu—ketergantungan itu tidak sepadan.
 
 ## Yang Dibangun
-Kanban Lite: papan tiga kolom tanpa library. Pengguna bisa menambah, menggeser, dan menghapus kartu. Data tersimpan di localStorage. Papan ketik didukung.
-
-Hasil: app.js (5901 B), index.html (1341 B), style.css (3574 B).
+Kanban Lite: papan kanban web tiga kolom tanpa library. Pengguna dapat menambah, menggeser, dan menghapus kartu. Semua data tersimpan di localStorage, sehingga papan tetap ada setelah halaman dimuat ulang. Dukungan papan ketik disertakan agar operasi kartu tidak bergantung pada tetikus.
 
 ## Keputusan Teknis
-JavaScript murni tanpa dependensi. State disimpan di localStorage agar data bertahan tanpa backend. Kendali papan ketik dipasang di level dokumen supaya operasi kartu bisa dilakukan tanpa mouse.
+Kode ditulis langsung dalam JavaScript, HTML, dan CSS tanpa dependensi runtime. app.js berukuran 8648 B, index.html 1639 B, style.css 4435 B, dan README.md 829 B. Seluruh state disimpan di localStorage. Interaksi papan ketik ditangani di lapisan kode yang sama, bukan sebagai lapisan tambahan.
 
 ## Bukti
-QC mencakup tiga lapis: kode, pengguna, visual. Ketiganya lulus. Waktu QC 41,23 detik. Temuan: 0. Rincian kode: 1 JS, 0 py, 0 json, 0 lua, 2 lain.
+QC menjalankan 3 lapis aktif: kode, pengguna, dan visual. Ketiganya lulus dalam 77,02 detik dengan 0 temuan. Rincian berkas: 1 berkas JS, 1 berkas JSON, 6 berkas lain.
 
 ## Batasan
-Hanya tiga kolom. Tidak ada backend, sinkronisasi, atau multi-pengguna. Skala data dibatasi kapasitas localStorage. Kode belum diuji untuk volume kartu besar.
+Lingkup sengaja dibatasi: tiga kolom, tanpa penyuntingan kartu, tanpa sinkronisasi lintas perangkat. Data hanya hidup di localStorage peramban tempat kartu dibuat.

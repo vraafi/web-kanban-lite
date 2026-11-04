@@ -1,3 +1,1 @@
-- Membangun Kanban Lite tiga kolom tanpa library; 3 lapis QC lulus.
-- Menutup QC kode, pengguna, dan visual dalam 41,23 detik tanpa temuan.
-- Menyimpan state di localStorage; berkas app.js 5901 B, index.html 1341 B.
+['Membangun Kanban Lite tanpa library, tersimpan di localStorage, dalam 4 berkas.', 'Meloloskan 3 lapis QC—kode, pengguna, visual—dalam 77,02 detik.', 'Menutup QC dengan 0 temuan pada seluruh lapis aktif.']

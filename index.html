@@ -5,32 +5,42 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kanban Lite</title>
 <link rel="stylesheet" href="style.css">
-<script src="app.js" defer></script>
 </head>
 <body>
-<main>
+<main class="app">
+<header class="app-header">
 <h1>Kanban Lite</h1>
-<p class="hint">Tambah kartu, geser antar kolom, atau hapus. Data tersimpan otomatis di perangkat ini.</p>
-<form id="add-form" class="add-form" autocomplete="off">
-<label for="card-input" class="sr-label">Teks kartu baru</label>
-<input id="card-input" type="text" placeholder="Tulis kartu baru..." maxlength="200" required>
-<button type="submit" class="btn btn-primary">Tambah Kartu</button>
-</form>
-<div id="board" class="board">
-  <section class="column" data-col="todo" aria-labelledby="h-todo">
-    <h2 id="h-todo">Akan Dikerjakan</h2>
-    <ul class="cards" id="list-todo"></ul>
-  </section>
-  <section class="column" data-col="doing" aria-labelledby="h-doing">
-    <h2 id="h-doing">Sedang Dikerjakan</h2>
-    <ul class="cards" id="list-doing"></ul>
-  </section>
-  <section class="column" data-col="done" aria-labelledby="h-done">
-    <h2 id="h-done">Selesai</h2>
-    <ul class="cards" id="list-done"></ul>
-  </section>
-</div>
+<p class="subtitle">Kelola tugas dengan tiga kolom sederhana. Semua data tersimpan di perangkat Anda.</p>
+</header>
+
+<section class="add-bar" aria-label="Tambah kartu baru">
+<label class="visually-hidden" for="new-card-input">Teks kartu baru</label>
+<input id="new-card-input" type="text" maxlength="120" placeholder="Tulis kartu baru..." autocomplete="off">
+<button id="add-btn" type="button">Tambah Kartu</button>
+</section>
+
 <p id="status" class="status" role="status" aria-live="polite"></p>
+
+<div class="board">
+<section class="column" data-column="todo" aria-labelledby="head-todo">
+<h2 id="head-todo" class="column-title">Akan Dikerjakan</h2>
+<ul class="card-list" id="list-todo"></ul>
+</section>
+<section class="column" data-column="doing" aria-labelledby="head-doing">
+<h2 id="head-doing" class="column-title">Sedang Dikerjakan</h2>
+<ul class="card-list" id="list-doing"></ul>
+</section>
+<section class="column" data-column="done" aria-labelledby="head-done">
+<h2 id="head-done" class="column-title">Selesai</h2>
+<ul class="card-list" id="list-done"></ul>
+</section>
+</div>
+
+<footer class="app-footer">
+<button id="clear-done" type="button">Hapus Semua Selesai</button>
+<button id="reset-all" type="button">Reset Papan</button>
+</footer>
 </main>
+<script src="app.js" defer></script>
 </body>
 </html>
