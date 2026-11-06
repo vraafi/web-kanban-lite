@@ -5,42 +5,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kanban Lite</title>
 <link rel="stylesheet" href="style.css">
+<script src="app.js" defer></script>
 </head>
 <body>
-<main class="app">
-<header class="app-header">
+<main>
 <h1>Kanban Lite</h1>
-<p class="subtitle">Kelola tugas dengan tiga kolom sederhana. Semua data tersimpan di perangkat Anda.</p>
-</header>
-
-<section class="add-bar" aria-label="Tambah kartu baru">
-<label class="visually-hidden" for="new-card-input">Teks kartu baru</label>
-<input id="new-card-input" type="text" maxlength="120" placeholder="Tulis kartu baru..." autocomplete="off">
-<button id="add-btn" type="button">Tambah Kartu</button>
-</section>
-
-<p id="status" class="status" role="status" aria-live="polite"></p>
-
-<div class="board">
-<section class="column" data-column="todo" aria-labelledby="head-todo">
-<h2 id="head-todo" class="column-title">Akan Dikerjakan</h2>
+<p class="sub">Kelola tugas dengan tiga kolom. Gunakan keyboard: Tab untuk navigasi, Enter/Space untuk menekan tombol.</p>
+<section class="board" aria-label="Papan Kanban">
+<div class="column" data-column="todo">
+<h2>To Do</h2>
 <ul class="card-list" id="list-todo"></ul>
-</section>
-<section class="column" data-column="doing" aria-labelledby="head-doing">
-<h2 id="head-doing" class="column-title">Sedang Dikerjakan</h2>
-<ul class="card-list" id="list-doing"></ul>
-</section>
-<section class="column" data-column="done" aria-labelledby="head-done">
-<h2 id="head-done" class="column-title">Selesai</h2>
-<ul class="card-list" id="list-done"></ul>
-</section>
+<button type="button" class="btn btn-primary add-btn" data-add="todo">Tambah Kartu</button>
 </div>
-
-<footer class="app-footer">
-<button id="clear-done" type="button">Hapus Semua Selesai</button>
-<button id="reset-all" type="button">Reset Papan</button>
-</footer>
+<div class="column" data-column="doing">
+<h2>Doing</h2>
+<ul class="card-list" id="list-doing"></ul>
+<button type="button" class="btn btn-primary add-btn" data-add="doing">Tambah Kartu</button>
+</div>
+<div class="column" data-column="done">
+<h2>Done</h2>
+<ul class="card-list" id="list-done"></ul>
+<button type="button" class="btn btn-primary add-btn" data-add="done">Tambah Kartu</button>
+</div>
+</section>
 </main>
-<script src="app.js" defer></script>
 </body>
 </html>
