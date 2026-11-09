@@ -1,33 +1,27 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kanban Lite</title>
-<link rel="stylesheet" href="style.css">
-<script src="app.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kanban Lite</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
 </head>
 <body>
-<main>
-<h1>Kanban Lite</h1>
-<p class="sub">Kelola tugas dengan tiga kolom. Gunakan keyboard: Tab untuk navigasi, Enter/Space untuk menekan tombol.</p>
-<section class="board" aria-label="Papan Kanban">
-<div class="column" data-column="todo">
-<h2>To Do</h2>
-<ul class="card-list" id="list-todo"></ul>
-<button type="button" class="btn btn-primary add-btn" data-add="todo">Tambah Kartu</button>
-</div>
-<div class="column" data-column="doing">
-<h2>Doing</h2>
-<ul class="card-list" id="list-doing"></ul>
-<button type="button" class="btn btn-primary add-btn" data-add="doing">Tambah Kartu</button>
-</div>
-<div class="column" data-column="done">
-<h2>Done</h2>
-<ul class="card-list" id="list-done"></ul>
-<button type="button" class="btn btn-primary add-btn" data-add="done">Tambah Kartu</button>
-</div>
-</section>
-</main>
-</body>
-</html>
+  <main class="container">
+    <header class="header">
+      <h1>Kanban Lite</h1>
+      <button id="open-add-modal-btn" class="btn-primary" type="button">Tambah Kartu</button>
+    </header>
+
+    <div id="add-modal" class="modal" hidden>
+      <div class="modal-content">
+        <h2>Tambah Kartu Baru</h2>
+        <form id="add-card-form">
+          <div class="form-group">
+            <label for="card-title">Judul Kartu</label>
+            <input type="text" id="card-title" required placeholder="Masukkan judul..." maxlength="100">
+          </div>
+          <div class="form-group">
+            <label for="card-desc">Deskripsi</label>
+            <textarea id="card-desc" rows="3" placeholder="Masukkan deskripsi (opsional)..."></
